@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+    <title>Amadon</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row p-5">
+            <h1>Amadon Store!</h1>
+            <table class="table table-primary ">
+                <thead>
+                    <tr>
+                        <th >Item</th>
+                        <th >Price</th>
+                        <th >Quantity</th>
+                        <th >Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in all_products %}
+                    <tr>
+                        <form action="/checkout" method="post">
+                            {% csrf_token %}
+                            <td class="bg-light">{{product.description}}</td>
+                            <td class="bg-light"><input type="hidden" name="id_product"
+                                    value="{{product.id}}">{{product.price}}</td>
+                            <td class="bg-light"><select name="quantity" class="bg-light">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select></td>
+                            <td class="bg-light"><input type="submit" value="Buy!" class="btn btn-info"></td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
